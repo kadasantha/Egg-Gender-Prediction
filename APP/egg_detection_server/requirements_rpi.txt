@@ -1,0 +1,15 @@
+# Requirements for Raspberry Pi
+# Use this file instead of requirements.txt on Raspberry Pi
+
+Flask==2.3.3
+flask-cors==4.0.0
+numpy==1.24.3
+pandas==2.0.3
+scikit-learn==1.3.0
+joblib==1.3.2
+
+# Note: Install opencv-python using apt instead of pip for better performance:
+# sudo apt install python3-opencv
+#
+# If you need to install via pip, use the headless version:
+# opencv-python-headless==4.8.0.76

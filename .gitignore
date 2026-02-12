@@ -1,0 +1,105 @@
+# Root .gitignore for Egg Gender Prediction System
+
+# OS Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# IDE and Editor Files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+# Temporary Files
+*.tmp
+*.temp
+*.log
+*.cache
+*.bak
+*.old
+
+# Personal Notes
+*.txt
+!requirements.txt
+!requirements_rpi.txt
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+.venv
+pip-log.txt
+pip-delete-this-directory.txt
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Flutter/Dart
+.dart_tool/
+.packages
+.pub-cache/
+.pub/
+build/
+*.g.dart
+*.freezed.dart
+
+# Firebase
+firebase_app_check_debug_token.txt
+
+# ML Models (large files - manage separately)
+# *.pkl
+# *.joblib
+# *.h5
+# *.model
+
+# Datasets (usually large)
+*.xlsx
+*.csv
+*.xls
+!example_dataset.xlsx
+
+# HTML downloads
+*.html
+
+# Media Files (manage large files separately)
+# *.mp4
+# *.mov
+# *.avi
+
+# Detection History
+detection_history.json
+
+# Build outputs
+dist/
+*.egg-info/
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+*.ipynb
+
+# Credentials and Secrets
+google-services.json
+GoogleService-Info.plist
+firebase_options.dart
+.env
+*.pem
+*.key
+credentials.json
+
+# Raspberry Pi specific
+local.properties

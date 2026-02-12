@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(flutter analyze)",
+      "Bash(flutter pub get)",
+      "Bash(flutter doctor)",
+      "Bash(flutter build apk --release)",
+      "Bash(ping -n 2 raspberrypi.local)",
+      "Bash(curl -s -m 5 http://raspberrypi.local:5000/api/status)",
+      "Bash(dart run flutter_launcher_icons)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
