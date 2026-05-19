@@ -706,8 +706,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 👥 Authors
 
 **Your Name**
-- GitHub: [@yourusername](https://github.com/yourusername)
-- Email: your.email@example.com
+- GitHub: [@kadasantha](https://github.com/kadasantha)
+- Email: dasanthakalu99@gmail.com 
 
 **Project Link:** [https://github.com/yourusername/egg-gender-prediction](https://github.com/yourusername/egg-gender-prediction)
 
