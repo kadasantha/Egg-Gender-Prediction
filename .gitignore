@@ -68,20 +68,16 @@ firebase_app_check_debug_token.txt
 !*.h5
 !*.model
 
-# Datasets (usually large)
-# Now allowing ml-models datasets for GitHub
-*.xlsx
-*.csv
-*.xls
-!example_dataset.xlsx
-!ml-models/**/*.xlsx
-!ml-models/**/*.csv
-!ml-models/**/*.xls
+# Datasets (usually large) - EXCEPT in ml-models folder
+# *.xlsx
+# *.csv
+# *.xls
+# !example_dataset.xlsx
+# NOTE: ml-models folder is tracked in Git
 
-# HTML downloads (general)
-# But allow ml-models documentation
-*.html
-!ml-models/**/*.html
+# HTML downloads (general) - EXCEPT in ml-models folder
+# *.html
+# NOTE: ml-models documentation is tracked in Git
 
 # Media Files (manage large files separately)
 # *.mp4
@@ -95,10 +91,10 @@ detection_history.json
 dist/
 *.egg-info/
 
-# Jupyter Notebook
+# Jupyter Notebook (general) - EXCEPT in ml-models folder
 .ipynb_checkpoints/
-*.ipynb
-!ml-models/**/*.ipynb
+# *.ipynb
+# NOTE: ml-models notebooks are tracked in Git
 
 # Credentials and Secrets
 google-services.json
