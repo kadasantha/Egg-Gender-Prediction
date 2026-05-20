@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Egg Gender Prediction Notebook</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        .instructions {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 4px solid #667eea;
+        }
+        .instructions h3 {
+            margin-top: 0;
+            color: #667eea;
+        }
+        .instructions ol {
+            margin: 10px 0;
+            padding-left: 25px;
+        }
+        .instructions li {
+            margin: 8px 0;
+            line-height: 1.6;
+        }
+        .download-btn {
+            display: block;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+        }
+        .download-btn:active {
+            transform: translateY(0);
+        }
+        .icon {
+            font-size: 48px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .note {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .note strong {
+            color: #856404;
+        }
+        .success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="icon">🥚📊🤖</div>
+        <h1>Egg Gender Prediction Model</h1>
+        <p class="subtitle">Machine Learning Training Notebook</p>
+        
+        <div class="instructions">
+            <h3>📋 How to Use:</h3>
+            <ol>
+                <li><strong>Click the download button below</strong> - This will download <code>Egg_Gender_Prediction_Model.ipynb</code></li>
+                <li><strong>Go to Google Colab:</strong> <a href="https://colab.research.google.com" target="_blank">colab.research.google.com</a></li>
+                <li><strong>Click:</strong> File → Upload notebook</li>
+                <li><strong>Select</strong> the downloaded <code>.ipynb</code> file</li>
+                <li><strong>Run all cells:</strong> Runtime → Run all</li>
+            </ol>
+        </div>
+
+        <button class="download-btn" onclick="downloadNotebook()">
+            ⬇️ Download Notebook (.ipynb)
+        </button>
+
+        <div class="success" id="successMsg">
+            ✅ <strong>Download started!</strong> Check your Downloads folder for <code>Egg_Gender_Prediction_Model.ipynb</code>
+        </div>
+
+        <div class="note">
+            <strong>⚠️ Important:</strong> Before running the notebook in Colab, make sure you have:
+            <ul>
+                <li>Created folder: <code>Egg Gender Prediction Model/Dataset/</code> in Google Drive</li>
+                <li>Uploaded <code>Egg_Dataset_Extended.xlsx</code> to the Dataset folder</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function downloadNotebook() {
+            const notebook = {
+                "cells": [
+                    {
+                        "cell_type": "markdown",
+                        "metadata": {},
+                        "source": [
+                            "# Egg Gender Prediction Model - Training System\\n",
+                            "## Complete Machine Learning Pipeline\\n",
+                            "\\n",
+                            "---\\n",
+                            "\\n",
+                            "**System Features:**\\n",
+                            "- Load egg dataset from Google Drive\\n",
+                            "- Train multiple ML models (Random Forest, SVM, etc.)\\n",
+                            "- Evaluate model performance\\n",
+                            "- Save trained model for prediction\\n",
+                            "- Generate detailed performance reports\\n",
+                            "\\n",
+                            "**Classification Rules:**\\n",
+                            "- ESI < 72: Male\\n",
+                            "- ESI 72-78: Female\\n",
+                            "- ESI > 78: Unhatched"
+                        ]
+                    },
+                    {
+                        "cell_type": "markdown",
+                        "metadata": {},
+                        "source": ["## SECTION 1: Install and Import Dependencies"]
+                    },
+                    {
+                        "cell_type": "code",
+                        "execution_count": null,
+                        "metadata": {},
+                        "outputs": [],
+                        "source": [
+                            "# Install required packages\\n",
+                            "%pip install pandas numpy scikit-learn matplotlib seaborn openpyxl"
+                        ]
+                    },
+                    {
+                        "cell_type": "code",
+                        "execution_count": null,
+                        "metadata": {},
+                        "outputs": [],
+                        "source": [
+                            "# Import libraries\\n",
+                            "import pandas as pd\\n",
+                            "import numpy as np\\n",
+                            "import matplotlib.pyplot as plt\\n",
+                            "import seaborn as sns\\n",
+                            "from sklearn.model_selection import train_test_split\\n",
+                            "from sklearn.preprocessing import LabelEncoder, StandardScaler\\n",
+                            "from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier\\n",
+                            "from sklearn.tree import DecisionTreeClassifier\\n",
+                            "from sklearn.svm import SVC\\n",
+                            "from sklearn.neighbors import KNeighborsClassifier\\n",
+                            "from sklearn.linear_model import LogisticRegression\\n",
+                            "from sklearn.metrics import classification_report, confusion_matrix, accuracy_score\\n",
+                            "import joblib\\n",
+                            "import warnings\\n",
+                            "warnings.filterwarnings('ignore')\\n",
+                            "\\n",
+                            "print('✅ All libraries imported successfully!')"
+                        ]
+                    },
+                    {
+                        "cell_type": "markdown",
+                        "metadata": {},
+                        "source": ["## SECTION 2: Mount Google Drive"]
+                    },
+                    {
+                        "cell_type": "code",
+                        "execution_count": null,
+                        "metadata": {},
+                        "outputs": [],
+                        "source": [
+                            "# Mount Google Drive\\n",
+                            "from google.colab import drive\\n",
+                            "drive.mount('/content/drive')"
+                        ]
+                    },
+                    {
+                        "cell_type": "markdown",
+                        "metadata": {},
+                        "source": ["## SECTION 3: Configuration"]
+                    },
+                    {
+                        "cell_type": "code",
+                        "execution_count": null,
+                        "metadata": {},
+                        "outputs": [],
+                        "source": [
+                            "# Dataset path in Google Drive\\n",
+                            "DATASET_PATH = '/content/drive/MyDrive/Egg Gender Prediction Model/Dataset/Egg_Dataset_Extended.xlsx'\\n",
+                            "\\n",
+                            "# Model save path\\n",
+                            "MODEL_SAVE_PATH = '/content/drive/MyDrive/Egg Gender Prediction Model/'\\n",
+                            "\\n",
+                            "# Model configuration\\n",
+                            "RANDOM_STATE = 42\\n",
+                            "TEST_SIZE = 0.2\\n",
+                            "\\n",
+                            "print('Configuration complete!')\\n",
+                            "print(f'Dataset path: {DATASET_PATH}')\\n",
+                            "print(f'Model will be saved to: {MODEL_SAVE_PATH}')"
+                        ]
+                    },
+                    {
+                        "cell_type": "markdown",
+                        "metadata": {},
+                        "source": ["## SECTION 4: Load Dataset"]
+                    },
+                    {
+                        "cell_type": "code",
+                        "execution_count": null,
+                        "metadata": {},
+                        "outputs": [],
+                        "source": [
+                            "print('📂 Loading dataset from Google Drive...')\\n",
+                            "df = pd.read_excel(DATASET_PATH)\\n",
+                            "\\n",
+                            "print('✅ Dataset loaded successfully!')\\n",
+                            "print(f'\\\\nDataset shape: {df.shape[0]} rows × {df.shape[1]} columns')\\n",
+                            "print('\\\\nFirst 5 rows:')\\n",
+                            "print(df.head())\\n",
+                            "\\n",
+                            "print('\\\\nColumn names:')\\n",
+                            "print(df.columns.tolist())\\n",
+                            "\\n",
+                            "print('\\\\nData types:')\\n",
+                            "print(df.dtypes)\\n",
+                            "\\n",
+                            "print('\\\\nMissing values:')\\n",
+                            "print(df.isnull().sum())\\n",
+                            "\\n",
+                            "print('\\\\nGender distribution:')\\n",
+                            "print(df['Gender'].value_counts())"
+                        ]
+                    },
+                    {
+                        "cell_type": "markdown",
+                        "metadata": {},
+                        "source": ["## SECTION 5: Data Visualization"]
+                    },
+                    {
+                        "cell_type": "code",
+                        "execution_count": null,
+                        "metadata": {},
+                        "outputs": [],
+                        "source": [
+                            "# Visualize gender distribution\\n",
+                            "fig, axes = plt.subplots(2, 2, figsize=(16, 12))\\n",
+                            "\\n",
+                            "# 1. Bar chart\\n",
+                            "df['Gender'].value_counts().plot(kind='bar', ax=axes[0, 0], color=['#3498db', '#e74c3c', '#95a5a6'])\\n",
+                            "axes[0, 0].set_title('Gender Distribution', fontsize=14, fontweight='bold')\\n",
+                            "axes[0, 0].set_xlabel('Gender')\\n",
+                            "axes[0, 0].set_ylabel('Count')\\n",
+                            "\\n",
+                            "# 2. Width vs Height scatter\\n",
+                            "colors_map = {'Male': '#3498db', 'Female': '#e74c3c', 'Unhatched': '#95a5a6'}\\n",
+                            "for gender in df['Gender'].unique():\\n",
+                            "    subset = df[df['Gender'] == gender]\\n",
+                            "    axes[0, 1].scatter(subset['Width'], subset['Heigth'], label=gender, alpha=0.6, c=colors_map[gender], s=50)\\n",
+                            "axes[0, 1].set_xlabel('Width (mm)')\\n",
+                            "axes[0, 1].set_ylabel('Height (mm)')\\n",
+                            "axes[0, 1].set_title('Width vs Height by Gender', fontsize=14, fontweight='bold')\\n",
+                            "axes[0, 1].legend()\\n",
+                            "axes[0, 1].grid(True, alpha=0.3)\\n",
+                            "\\n",
+                            "# 3. ESI scatter\\n",
+                            "for gender in df['Gender'].unique():\\n",
+                            "    subset = df[df['Gender'] == gender]\\n",
+                            "    axes[1, 0].scatter(subset['Shape Index(%)'], subset['Width'], label=gender, alpha=0.6, c=colors_map[gender], s=50)\\n",
+                            "axes[1, 0].set_xlabel('Shape Index (%)')\\n",
+                            "axes[1, 0].set_ylabel('Width (mm)')\\n",
+                            "axes[1, 0].set_title('ESI vs Width by Gender', fontsize=14, fontweight='bold')\\n",
+                            "axes[1, 0].legend()\\n",
+                            "axes[1, 0].grid(True, alpha=0.3)\\n",
+                            "\\n",
+                            "# 4. ESI histogram\\n",
+                            "for gender in df['Gender'].unique():\\n",
+                            "    subset = df[df['Gender'] == gender]\\n",
+                            "    axes[1, 1].hist(subset['Shape Index(%)'], alpha=0.6, label=gender, bins=20, color=colors_map[gender])\\n",
+                            "axes[1, 1].set_xlabel('Shape Index (%)')\\n",
+                            "axes[1, 1].set_ylabel('Frequency')\\n",
+                            "axes[1, 1].set_title('ESI Distribution', fontsize=14, fontweight='bold')\\n",
+                            "axes[1, 1].legend()\\n",
+                            "\\n",
+                            "plt.tight_layout()\\n",
+                            "plt.show()"
+                        ]
+                    },
+                    {
+                        "cell_type": "markdown",
+                        "metadata": {},
+                        "source": ["## SECTION 6: Feature Engineering"]
+                    },
+                    {
+                        "cell_type": "code",
+                        "execution_count": null,
+                        "metadata": {},
+                        "outputs": [],
+                        "source": [
+                            "# Create additional features\\n",
+                            "df['Aspect_Ratio'] = df['Width'] / df['Heigth']\\n",
+                            "df['Perimeter_Approx'] = 2 * (df['Width'] + df['Heigth'])\\n",
+                            "df['Area_Approx'] = df['Width'] * df['Heigth']\\n",
+                            "df['Width_Height_Diff'] = df['Width'] - df['Heigth']\\n",
+                            "df['Width_Height_Sum'] = df['Width'] + df['Heigth']\\n",
+                            "\\n",
+                            "print('✅ Feature engineering complete!')\\n",
+                            "print(f'Updated dataset shape: {df.shape}')"
+                        ]
+                    },
+                    {
+                        "cell_type": "markdown",
+                        "metadata": {},
+                        "source": ["## SECTION 7: Prepare Data for Training"]
+                    },
+                    {
+                        "cell_type": "code",
+                        "execution_count": null,
+                        "metadata": {},
+                        "outputs": [],
+                        "source": [
+                            "# Select features\\n",
+                            "feature_columns = ['Width', 'Heigth', 'Shape Index(%)', 'Aspect_Ratio', \\n",
+                            "                   'Perimeter_Approx', 'Area_Approx', 'Width_Height_Diff']\\n",
+                            "\\n",
+                            "X = df[feature_columns]\\n",
+                            "y = df['Gender']\\n",
+                            "\\n",
+                            "# Encode target\\n",
+                            "label_encoder = LabelEncoder()\\n",
+                            "y_encoded = label_encoder.fit_transform(y)\\n",
+                            "\\n",
+                            "print(f'Target classes: {list(label_encoder.classes_)}')\\n",
+                            "\\n",
+                            "# Split data\\n",
+                            "X_train, X_test, y_train, y_test = train_test_split(\\n",
+                            "    X, y_encoded, test_size=TEST_SIZE, random_state=RANDOM_STATE, stratify=y_encoded\\n",
+                            ")\\n",
+                            "\\n",
+                            "# Scale features\\n",
+                            "scaler = StandardScaler()\\n",
+                            "X_train_scaled = scaler.fit_transform(X_train)\\n",
+                            "X_test_scaled = scaler.transform(X_test)\\n",
+                            "\\n",
+                            "print(f'Training set: {len(X_train)} samples')\\n",
+                            "print(f'Testing set: {len(X_test)} samples')\\n",
+                            "print('✅ Data preparation complete!')"
+                        ]
+                    },
+                    {
+                        "cell_type": "markdown",
+                        "metadata": {},
+                        "source": ["## SECTION 8: Train Multiple Models"]
+                    },
+                    {
+                        "cell_type": "code",
+                        "execution_count": null,
+                        "metadata": {},
+                        "outputs": [],
+                        "source": [
+                            "print('🔄 Training models...\\\\n')\\n",
+                            "\\n",
+                            "models = {\\n",
+                            "    'Random Forest': RandomForestClassifier(n_estimators=100, random_state=RANDOM_STATE, max_depth=10),\\n",
+                            "    'Gradient Boosting': GradientBoostingClassifier(n_estimators=100, random_state=RANDOM_STATE),\\n",
+                            "    'Decision Tree': DecisionTreeClassifier(random_state=RANDOM_STATE, max_depth=10),\\n",
+                            "    'SVM': SVC(kernel='rbf', random_state=RANDOM_STATE, probability=True),\\n",
+                            "    'KNN': KNeighborsClassifier(n_neighbors=5),\\n",
+                            "    'Logistic Regression': LogisticRegression(random_state=RANDOM_STATE, max_iter=1000)\\n",
+                            "}\\n",
+                            "\\n",
+                            "results = {}\\n",
+                            "\\n",
+                            "for name, model in models.items():\\n",
+                            "    print(f'Training {name}...', end=' ')\\n",
+                            "    model.fit(X_train_scaled, y_train)\\n",
+                            "    y_pred = model.predict(X_test_scaled)\\n",
+                            "    accuracy = accuracy_score(y_test, y_pred)\\n",
+                            "    results[name] = accuracy\\n",
+                            "    print(f'✅ {accuracy*100:.2f}%')\\n",
+                            "\\n",
+                            "# Select best model\\n",
+                            "best_model_name = max(results, key=results.get)\\n",
+                            "best_model = models[best_model_name]\\n",
+                            "best_accuracy = results[best_model_name]\\n",
+                            "\\n",
+                            "print(f'\\\\n🏆 Best Model: {best_model_name}')\\n",
+                            "print(f'   Accuracy: {best_accuracy*100:.2f}%')"
+                        ]
+                    },
+                    {
+                        "cell_type": "markdown",
+                        "metadata": {},
+                        "source": ["## SECTION 9: Model Evaluation"]
+                    },
+                    {
+                        "cell_type": "code",
+                        "execution_count": null,
+                        "metadata": {},
+                        "outputs": [],
+                        "source": [
+                            "# Classification report\\n",
+                            "y_pred_best = best_model.predict(X_test_scaled)\\n",
+                            "\\n",
+                            "print('📋 Classification Report:')\\n",
+                            "print(classification_report(y_test, y_pred_best, target_names=label_encoder.classes_))\\n",
+                            "\\n",
+                            "# Confusion Matrix\\n",
+                            "cm = confusion_matrix(y_test, y_pred_best)\\n",
+                            "plt.figure(figsize=(10, 8))\\n",
+                            "sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', \\n",
+                            "            xticklabels=label_encoder.classes_,\\n",
+                            "            yticklabels=label_encoder.classes_,\\n",
+                            "            linewidths=2, linecolor='black')\\n",
+                            "plt.title(f'Confusion Matrix - {best_model_name}', fontsize=16, fontweight='bold')\\n",
+                            "plt.ylabel('Actual Gender', fontsize=12)\\n",
+                            "plt.xlabel('Predicted Gender', fontsize=12)\\n",
+                            "plt.tight_layout()\\n",
+                            "plt.show()"
+                        ]
+                    },
+                    {
+                        "cell_type": "markdown",
+                        "metadata": {},
+                        "source": ["## SECTION 10: Feature Importance"]
+                    },
+                    {
+                        "cell_type": "code",
+                        "execution_count": null,
+                        "metadata": {},
+                        "outputs": [],
+                        "source": [
+                            "if hasattr(best_model, 'feature_importances_'):\\n",
+                            "    feature_importance = pd.DataFrame({\\n",
+                            "        'Feature': feature_columns,\\n",
+                            "        'Importance': best_model.feature_importances_\\n",
+                            "    }).sort_values('Importance', ascending=False)\\n",
+                            "    \\n",
+                            "    print('📊 Feature Importance:')\\n",
+                            "    print(feature_importance)\\n",
+                            "    \\n",
+                            "    plt.figure(figsize=(10, 6))\\n",
+                            "    plt.barh(feature_importance['Feature'], feature_importance['Importance'], color='skyblue', edgecolor='black')\\n",
+                            "    plt.xlabel('Importance')\\n",
+                            "    plt.title(f'Feature Importance - {best_model_name}', fontsize=14, fontweight='bold')\\n",
+                            "    plt.gca().invert_yaxis()\\n",
+                            "    plt.grid(axis='x', alpha=0.3)\\n",
+                            "    plt.tight_layout()\\n",
+                            "    plt.show()"
+                        ]
+                    },
+                    {
+                        "cell_type": "markdown",
+                        "metadata": {},
+                        "source": ["## SECTION 11: Save Model"]
+                    },
+                    {
+                        "cell_type": "code",
+                        "execution_count": null,
+                        "metadata": {},
+                        "outputs": [],
+                        "source": [
+                            "# Save model files\\n",
+                            "joblib.dump(best_model, MODEL_SAVE_PATH + 'egg_gender_model.pkl')\\n",
+                            "joblib.dump(scaler, MODEL_SAVE_PATH + 'scaler.pkl')\\n",
+                            "joblib.dump(label_encoder, MODEL_SAVE_PATH + 'label_encoder.pkl')\\n",
+                            "\\n",
+                            "print('✅ Model saved successfully!')\\n",
+                            "print(f'📁 Saved to: {MODEL_SAVE_PATH}')\\n",
+                            "print('\\\\nFiles created:')\\n",
+                            "print('  1. egg_gender_model.pkl')\\n",
+                            "print('  2. scaler.pkl')\\n",
+                            "print('  3. label_encoder.pkl')"
+                        ]
+                    },
+                    {
+                        "cell_type": "markdown",
+                        "metadata": {},
+                        "source": ["## SECTION 12: Test Predictions"]
+                    },
+                    {
+                        "cell_type": "code",
+                        "execution_count": null,
+                        "metadata": {},
+                        "outputs": [],
+                        "source": [
+                            "# Sample predictions\\n",
+                            "sample_size = 10\\n",
+                            "sample_indices = np.random.choice(X_test.index, sample_size, replace=False)\\n",
+                            "\\n",
+                            "print('🔮 Sample Predictions:\\\\n')\\n",
+                            "correct = 0\\n",
+                            "\\n",
+                            "for i, idx in enumerate(sample_indices, 1):\\n",
+                            "    sample_data = X.loc[[idx]]\\n",
+                            "    sample_scaled = scaler.transform(sample_data)\\n",
+                            "    prediction = best_model.predict(sample_scaled)\\n",
+                            "    pred_label = label_encoder.inverse_transform(prediction)[0]\\n",
+                            "    actual_label = y.loc[idx]\\n",
+                            "    \\n",
+                            "    is_correct = actual_label == pred_label\\n",
+                            "    if is_correct:\\n",
+                            "        correct += 1\\n",
+                            "    \\n",
+                            "    print(f'Sample {i}:')\\n",
+                            "    print(f'  Width: {sample_data[\\\\'Width\\\\'].values[0]:.2f} mm')\\n",
+                            "    print(f'  Height: {sample_data[\\\\'Heigth\\\\'].values[0]:.2f} mm')\\n",
+                            "    print(f'  ESI: {sample_data[\\\\'Shape Index(%)\\\\'].values[0]:.2f}%')\\n",
+                            "    print(f'  Actual: {actual_label} | Predicted: {pred_label}')\\n",
+                            "    print(f'  {\\\\'✓ CORRECT\\\\' if is_correct else \\\\'✗ WRONG\\\\'}\\\\n')\\n",
+                            "\\n",
+                            "print(f'Sample Accuracy: {correct}/{sample_size} ({correct/sample_size*100:.1f}%)')"
+                        ]
+                    },
+                    {
+                        "cell_type": "markdown",
+                        "metadata": {},
+                        "source": ["## SECTION 13: Summary Report"]
+                    },
+                    {
+                        "cell_type": "code",
+                        "execution_count": null,
+                        "metadata": {},
+                        "outputs": [],
+                        "source": [
+                            "print('=' * 60)\\n",
+                            "print('TRAINING SUMMARY REPORT')\\n",
+                            "print('=' * 60)\\n",
+                            "\\n",
+                            "print(f'📊 Dataset Statistics:')\\n",
+                            "print(f'  Total samples: {len(df)}')\\n",
+                            "print(f'  Training samples: {len(X_train)}')\\n",
+                            "print(f'  Testing samples: {len(X_test)}')\\n",
+                            "print(f'  Features used: {len(feature_columns)}')\\n",
+                            "\\n",
+                            "print(f'🏆 Best Model: {best_model_name}')\\n",
+                            "print(f'  Training Accuracy: {best_model.score(X_train_scaled, y_train)*100:.2f}%')\\n",
+                            "print(f'  Testing Accuracy: {best_accuracy*100:.2f}%')\\n",
+                            "\\n",
+                            "print(f'📁 Saved Files:')\\n",
+                            "print(f'  1. egg_gender_model.pkl')\\n",
+                            "print(f'  2. scaler.pkl')\\n",
+                            "print(f'  3. label_encoder.pkl')\\n",
+                            "\\n",
+                            "print(f'✅ Training Complete!')\\n",
+                            "print(f'Your model is ready for egg gender prediction!')\\n",
+                            "print('=' * 60)"
+                        ]
+                    }
+                ],
+                "metadata": {
+                    "kernelspec": {
+                        "display_name": "Python 3",
+                        "language": "python",
+                        "name": "python3"
+                    },
+                    "language_info": {
+                        "codemirror_mode": {
+                            "name": "ipython",
+                            "version": 3
+                        },
+                        "file_extension": ".py",
+                        "mimetype": "text/x-python",
+                        "name": "python",
+                        "nbconvert_exporter": "python",
+                        "pygments_lexer": "ipython3",
+                        "version": "3.8.0"
+                    }
+                },
+                "nbformat": 4,
+                "nbformat_minor": 4
+            };
+
+            // Convert to JSON string
+            const notebookJSON = JSON.stringify(notebook, null, 2);
+            
+            // Create blob
+            const blob = new Blob([notebookJSON], { type: 'application/x-ipynb+json' });
+            
+            // Create download link
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Egg_Gender_Prediction_Model.ipynb';
+            
+            // Trigger download
+            document.body.appendChild(a);
+            a.click();
+            
+            // Cleanup
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            // Show success message
+            document.getElementById('successMsg').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
+            

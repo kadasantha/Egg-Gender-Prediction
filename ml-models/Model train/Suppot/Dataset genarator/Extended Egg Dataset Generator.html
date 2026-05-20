@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Egg Dataset Generator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .upload-section, .stats-section, .download-section {
+            margin: 25px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+        .file-input {
+            display: none;
+        }
+        .file-label {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #667eea;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        .file-label:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin: 5px;
+        }
+        .btn-primary {
+            background: #28a745;
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+        }
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .stat-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .stat-label {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        .stat-value {
+            color: #667eea;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .progress {
+            height: 30px;
+            background: #e9ecef;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+        #status {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            display: none;
+        }
+        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; display: block; }
+        .info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; display: block; }
+        .warning { background: #fff3cd; color: #856404; border: 1px solid #ffeaa7; display: block; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🥚 Egg Gender Dataset Generator</h1>
+        <p class="subtitle">Based on ESI Formula: (Width / Height) × 100</p>
+        
+        <div class="upload-section">
+            <h3>Step 1: Upload Your Original Dataset</h3>
+            <input type="file" id="fileInput" class="file-input" accept=".xlsx,.xls" />
+            <label for="fileInput" class="file-label">📁 Choose Excel File</label>
+            <span id="fileName" style="margin-left: 15px; color: #666;"></span>
+        </div>
+
+        <div class="stats-section" id="statsSection" style="display:none;">
+            <h3>Original Dataset Statistics</h3>
+            <div class="stats-grid" id="originalStats"></div>
+        </div>
+
+        <div class="download-section" id="generateSection" style="display:none;">
+            <h3>Step 2: Generate Extended Dataset</h3>
+            <p>Target distribution (including original data):</p>
+            <div style="margin: 15px 0;">
+                <label>Male eggs: <input type="number" id="maleCount" value="250" min="0" style="width: 100px; padding: 5px;"></label><br><br>
+                <label>Female eggs: <input type="number" id="femaleCount" value="450" min="0" style="width: 100px; padding: 5px;"></label><br><br>
+                <label>Unhatched eggs: <input type="number" id="unhatchedCount" value="198" min="0" style="width: 100px; padding: 5px;"></label>
+            </div>
+            <button class="btn btn-primary" onclick="generateData()">✨ Generate Extended Dataset</button>
+        </div>
+
+        <div id="progressSection" style="display:none;">
+            <div class="progress">
+                <div class="progress-bar" id="progressBar" style="width: 0%">0%</div>
+            </div>
+        </div>
+
+        <div id="status"></div>
+
+        <div id="downloadSection" style="display:none; text-align: center; margin-top: 20px;">
+            <h3>Step 3: Download</h3>
+            <button class="btn btn-primary" onclick="downloadFile()">⬇️ Download Extended Dataset</button>
+            <div class="stats-grid" id="newStats" style="margin-top: 20px;"></div>
+        </div>
+    </div>
+
+    <script>
+        let originalData = [];
+        let extendedData = [];
+        let originalStats = {};
+
+        document.getElementById('fileInput').addEventListener('change', handleFile);
+
+        function handleFile(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            document.getElementById('fileName').textContent = file.name;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const data = new Uint8Array(e.target.result);
+                const workbook = XLSX.read(data, {type: 'array'});
+                const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+                originalData = XLSX.utils.sheet_to_json(firstSheet);
+                
+                analyzeOriginalData();
+                document.getElementById('statsSection').style.display = 'block';
+                document.getElementById('generateSection').style.display = 'block';
+            };
+            reader.readAsArrayBuffer(file);
+        }
+
+        function analyzeOriginalData() {
+            const maleCnt = originalData.filter(d => d.Gender === 'Male').length;
+            const femaleCnt = originalData.filter(d => d.Gender === 'Female').length;
+            const unhatchedCnt = originalData.filter(d => d.Gender === 'Unhatched').length;
+
+            originalStats = {
+                male: getStatsFor(originalData.filter(d => d.Gender === 'Male')),
+                female: getStatsFor(originalData.filter(d => d.Gender === 'Female')),
+                unhatched: getStatsFor(originalData.filter(d => d.Gender === 'Unhatched'))
+            };
+
+            document.getElementById('originalStats').innerHTML = `
+                <div class="stat-card">
+                    <div class="stat-label">Total Eggs</div>
+                    <div class="stat-value">${originalData.length}</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Male</div>
+                    <div class="stat-value">${maleCnt}</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Female</div>
+                    <div class="stat-value">${femaleCnt}</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Unhatched</div>
+                    <div class="stat-value">${unhatchedCnt}</div>
+                </div>
+            `;
+        }
+
+        function getStatsFor(data) {
+            const widths = data.map(d => d.Width);
+            const heights = data.map(d => d.Heigth);
+            
+            const meanWidth = widths.reduce((a,b) => a+b, 0) / widths.length;
+            const meanHeight = heights.reduce((a,b) => a+b, 0) / heights.length;
+            
+            const stdWidth = Math.sqrt(widths.reduce((a,b) => a + Math.pow(b - meanWidth, 2), 0) / widths.length);
+            const stdHeight = Math.sqrt(heights.reduce((a,b) => a + Math.pow(b - meanHeight, 2), 0) / heights.length);
+
+            return {
+                width: { mean: meanWidth, std: stdWidth, min: Math.min(...widths), max: Math.max(...widths) },
+                height: { mean: meanHeight, std: stdHeight, min: Math.min(...heights), max: Math.max(...heights) }
+            };
+        }
+
+        function normalRandom(mean, std) {
+            const u1 = Math.random();
+            const u2 = Math.random();
+            const z0 = Math.sqrt(-2.0 * Math.log(u1)) * Math.cos(2.0 * Math.PI * u2);
+            return mean + std * z0;
+        }
+
+        function generateEggs(category, stats, count, startIndex) {
+            const eggs = [];
+            
+            for (let i = 0; i < count; i++) {
+                let width, height, esi;
+                let attempts = 0;
+                
+                do {
+                    width = normalRandom(stats.width.mean, stats.width.std);
+                    height = normalRandom(stats.height.mean, stats.height.std);
+                    esi = (width / height) * 100;
+                    
+                    attempts++;
+                    if (attempts > 100) {
+                        if (category === 'Male') width = height * 0.70;
+                        else if (category === 'Female') width = height * 0.75;
+                        else width = height * 0.80;
+                        esi = (width / height) * 100;
+                        break;
+                    }
+                } while (
+                    (category === 'Male' && (esi >= 72 || esi < 68)) ||
+                    (category === 'Female' && (esi < 72 || esi >= 78)) ||
+                    (category === 'Unhatched' && esi < 78)
+                );
+                
+                width = Math.max(stats.width.min - 3, Math.min(stats.width.max + 3, width));
+                height = Math.max(stats.height.min - 3, Math.min(stats.height.max + 3, height));
+                esi = (width / height) * 100;
+                
+                eggs.push({
+                    'Egg Number': startIndex + i,
+                    'Width': parseFloat(width.toFixed(2)),
+                    'Heigth': parseFloat(height.toFixed(2)),
+                    'Shape Index(%)': parseFloat(esi.toFixed(2)),
+                    'Gender': category
+                });
+            }
+            
+            return eggs;
+        }
+
+        function generateData() {
+            const maleTarget = parseInt(document.getElementById('maleCount').value);
+            const femaleTarget = parseInt(document.getElementById('femaleCount').value);
+            const unhatchedTarget = parseInt(document.getElementById('unhatchedCount').value);
+
+            const currentMale = originalData.filter(d => d.Gender === 'Male').length;
+            const currentFemale = originalData.filter(d => d.Gender === 'Female').length;
+            const currentUnhatched = originalData.filter(d => d.Gender === 'Unhatched').length;
+
+            document.getElementById('progressSection').style.display = 'block';
+            document.getElementById('status').className = 'info';
+            document.getElementById('status').textContent = 'Generating data...';
+            
+            setTimeout(() => {
+                updateProgress(20);
+                
+                const maleToGen = Math.max(0, maleTarget - currentMale);
+                const femaleToGen = Math.max(0, femaleTarget - currentFemale);
+                const unhatchedToGen = Math.max(0, unhatchedTarget - currentUnhatched);
+
+                updateProgress(40);
+
+                const syntheticMale = generateEggs('Male', originalStats.male, maleToGen, originalData.length + 1);
+                updateProgress(60);
+                
+                const syntheticFemale = generateEggs('Female', originalStats.female, femaleToGen, originalData.length + maleToGen + 1);
+                updateProgress(80);
+                
+                const syntheticUnhatched = generateEggs('Unhatched', originalStats.unhatched, unhatchedToGen, originalData.length + maleToGen + femaleToGen + 1);
+                updateProgress(100);
+
+                extendedData = [...originalData, ...syntheticMale, ...syntheticFemale, ...syntheticUnhatched];
+
+                const finalMale = extendedData.filter(d => d.Gender === 'Male').length;
+                const finalFemale = extendedData.filter(d => d.Gender === 'Female').length;
+                const finalUnhatched = extendedData.filter(d => d.Gender === 'Unhatched').length;
+
+                document.getElementById('status').className = 'success';
+                document.getElementById('status').textContent = `✅ Successfully generated ${extendedData.length} total eggs!`;
+                
+                document.getElementById('newStats').innerHTML = `
+                    <div class="stat-card">
+                        <div class="stat-label">Total Eggs</div>
+                        <div class="stat-value">${extendedData.length}</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Male</div>
+                        <div class="stat-value">${finalMale}</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Female</div>
+                        <div class="stat-value">${finalFemale}</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Unhatched</div>
+                        <div class="stat-value">${finalUnhatched}</div>
+                    </div>
+                `;
+
+                document.getElementById('downloadSection').style.display = 'block';
+            }, 500);
+        }
+
+        function updateProgress(percent) {
+            const bar = document.getElementById('progressBar');
+            bar.style.width = percent + '%';
+            bar.textContent = percent + '%';
+        }
+
+        function downloadFile() {
+            const ws = XLSX.utils.json_to_sheet(extendedData);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'Egg Data');
+            XLSX.writeFile(wb, 'Egg_Dataset_Extended.xlsx');
+            
+            document.getElementById('status').className = 'success';
+            document.getElementById('status').textContent = '✅ File downloaded successfully!';
+        }
+    </script>
+</body>
+</html>
