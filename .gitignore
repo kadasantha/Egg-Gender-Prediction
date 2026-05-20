@@ -69,13 +69,19 @@ firebase_app_check_debug_token.txt
 !*.model
 
 # Datasets (usually large)
+# Now allowing ml-models datasets for GitHub
 *.xlsx
 *.csv
 *.xls
 !example_dataset.xlsx
+!ml-models/**/*.xlsx
+!ml-models/**/*.csv
+!ml-models/**/*.xls
 
-# HTML downloads
+# HTML downloads (general)
+# But allow ml-models documentation
 *.html
+!ml-models/**/*.html
 
 # Media Files (manage large files separately)
 # *.mp4
@@ -92,6 +98,7 @@ dist/
 # Jupyter Notebook
 .ipynb_checkpoints/
 *.ipynb
+!ml-models/**/*.ipynb
 
 # Credentials and Secrets
 google-services.json
