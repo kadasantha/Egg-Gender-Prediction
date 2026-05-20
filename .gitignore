@@ -61,11 +61,12 @@ build/
 # Firebase
 firebase_app_check_debug_token.txt
 
-# ML Models (large files - manage separately)
-# *.pkl
-# *.joblib
-# *.h5
-# *.model
+# ML Models (large files - manage with Git LFS)
+# Now managed by Git LFS - see .gitattributes
+!*.pkl
+!*.joblib
+!*.h5
+!*.model
 
 # Datasets (usually large)
 *.xlsx
